@@ -47,3 +47,40 @@ h1, h2, h3, h4, h5 {
     from { opacity: 0}
     to { opacity: 100}
 }
+
+.track {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.track-image {
+    width: 250px;
+    height: 250px;
+}
+
+.track-text {
+    position: absolute;
+    width: 250px;
+    bottom: 0px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
+.track-icon {
+    position: absolute;
+    bottom: 100px;
+    left: 100px;
+    background-color: black;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    padding: 10px;
+    opacity: 0.5;
+
+}

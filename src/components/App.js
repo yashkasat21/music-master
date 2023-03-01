@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import Artist from './Artist';
+import Tracks from './Tracks';
+import Search from './Search';
 
 const API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
 
 class App extends Component {
 
-    state = { artistQuery: '', artist : null, tracks: []};
+    state = { artist : null, tracks: []};
 
+
+    componentDidMount() {
+        this.searchArtist('xxxtentacion');
+    }
 
     updateArtistQuery = event => {
         console.log('event.target.value', event.target.value);
@@ -19,10 +25,10 @@ class App extends Component {
         }
     }
 
-    searchArtist = () => {
+    searchArtist = artistQuery => {
         console.log('this.state', this.state);
-        var s = 'https://spotify-api-wrapper.appspot.com/artist/' + this.state.artistQuery;
-        fetch(`${API_ADDRESS}/artist/${this.state.artistQuery}`)
+        var s = 'https://spotify-api-wrapper.appspot.com/artist/' + artistQuery;
+        fetch(`${API_ADDRESS}/artist/${artistQuery}`)
         .then(response => response.json())
         .then(json => {
 
@@ -32,7 +38,7 @@ class App extends Component {
 
                 fetch(`${API_ADDRESS}/artist/${artist.id}/top-tracks`)
                 .then(response => response.json())
-                .then(json => this.setState( {tracks: json}))
+                .then(json => this.setState( {tracks: json.tracks}))
                 .catch(error => alert(error.message));
             }
         })
@@ -44,12 +50,9 @@ class App extends Component {
         return (
             <div>
                 <h2>Music Master</h2>
-                <input 
-                onChange= {this.updateArtistQuery}
-                onKeyDown = {this.handleKeyPress}
-                placeholder='Search for an artist' />
-                <button onClick = {this.searchArtist}> Search</button>
+                <Search searchArtist = {this.searchArtist}/>
                 <Artist artist={this.state.artist}/>
+                <Tracks tracks={this.state.tracks}/>
             </div>
         );
     }
